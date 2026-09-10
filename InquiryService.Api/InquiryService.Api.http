@@ -1,0 +1,55 @@
+@InquiryService.Api_HostAddress = http://localhost:8080
+
+### Submit an inquiry (fresh request)
+POST {{InquiryService.Api_HostAddress}}/api/inquiries
+Content-Type: application/json
+
+{
+  "customerId": "CUST-001",
+  "productId": "PROD-001",
+  "reference": "REF-001"
+}
+
+### Submit the same inquiry again (served from cache)
+POST {{InquiryService.Api_HostAddress}}/api/inquiries
+Content-Type: application/json
+
+{
+  "customerId": "CUST-001",
+  "productId": "PROD-001",
+  "reference": "REF-001"
+}
+
+### Bypass the cache to force a fresh provider run
+POST {{InquiryService.Api_HostAddress}}/api/inquiries?bypassCache=true
+Content-Type: application/json
+
+{
+  "customerId": "CUST-001",
+  "productId": "PROD-001",
+  "reference": "REF-001"
+}
+
+### Invalid request (should return 400)
+POST {{InquiryService.Api_HostAddress}}/api/inquiries
+Content-Type: application/json
+
+{
+  "productId": "PROD-001"
+}
+
+### List fake providers and their current scenarios
+GET {{InquiryService.Api_HostAddress}}/api/debug/providers
+
+### Make Alpha technically fail, then submit -> Beta should serve
+PUT {{InquiryService.Api_HostAddress}}/api/debug/providers/Alpha/scenario?scenario=TechnicalFailure
+
+### Make Alpha time out, then submit -> Beta should serve
+PUT {{InquiryService.Api_HostAddress}}/api/debug/providers/Alpha/scenario?scenario=Timeout
+
+### Make Alpha return a business error, then submit -> Beta must NOT be tried
+PUT {{InquiryService.Api_HostAddress}}/api/debug/providers/Alpha/scenario?scenario=BusinessError
+
+### Reset both providers back to success
+PUT {{InquiryService.Api_HostAddress}}/api/debug/providers/Alpha/scenario?scenario=Success
+PUT {{InquiryService.Api_HostAddress}}/api/debug/providers/Beta/scenario?scenario=Success

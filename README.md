@@ -28,6 +28,9 @@ curl -s "http://localhost:8080/api/inquiries?bypassCache=true" \
   -d '{"customerId":"CUST-001","productId":"PROD-001","reference":"REF-001"}'
 ```
 
+An interactive Swagger UI is also available at `http://localhost:8080/swagger` when the app runs in the
+Development environment (which the compose file sets), so you can try the endpoints in the browser.
+
 ### Demonstrating failover
 
 There are two fake providers (`Alpha`, priority 1, and `Beta`, priority 2) that never call any real

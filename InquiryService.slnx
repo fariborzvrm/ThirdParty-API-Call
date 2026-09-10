@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="InquiryService.Api/InquiryService.Api.csproj" />
+  <Project Path="InquiryService.Tests/InquiryService.Tests.csproj" />
+</Solution>

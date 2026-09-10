@@ -177,7 +177,8 @@ the same inquiry row, so the full history is preserved.
 - **Business responses are returned as 200.** The provider's payload is treated as an opaque,
   final document, so a business-level error inside it stays a 200 with `isBusinessError` set.
 - **The debug endpoints expose fake-provider control** and are intended for local/demo use only;
-  protect or remove them in a real deployment.
+  they return 404 unless the app runs with `ASPNETCORE_ENVIRONMENT=Development`, so a real
+  deployment behind a non-Development environment loses them automatically.
 - **No auth, no API versioning, no health endpoint** — none were required, and a reviewer should
   spot that as a conscious scope cut rather than an oversight.
 

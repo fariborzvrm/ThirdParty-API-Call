@@ -3,8 +3,7 @@
 A small ASP.NET Core Web API that accepts an "inquiry" request, calls external providers in
 priority order with failover, caches and deduplicates results, and persists everything to SQL Server.
 
-Built as a take-home assignment for a .NET backend engineering position. It is deliberately boring:
-no CQRS, no MediatR, no generic-repository ceremony — just clear layers that do one job each.
+Built as a take-home assignment for a .NET backend engineering position.
 
 ## Quick start (Docker)
 
